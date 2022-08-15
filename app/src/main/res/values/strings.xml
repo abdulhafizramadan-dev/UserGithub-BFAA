@@ -5,6 +5,9 @@
     <string name="repositories">Repositories</string>
     <string name="followers">Followers</string>
     <string name="following">Following</string>
+    <string name="empty_string" />
+    <string name="dummy_username">\@JakeWharton</string>
+    <string name="detail">Detail</string>
 
     <!--  User Github Strings  -->
     <string-array name="username">
