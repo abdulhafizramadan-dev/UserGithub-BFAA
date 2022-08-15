@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">User Github</string>
+    <string name="share">Share</string>
+    <string name="content_description_icon_repository">Icon Repository</string>
+    <string name="repositories">Repositories</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
 
     <!--  User Github Strings  -->
     <string-array name="username">
