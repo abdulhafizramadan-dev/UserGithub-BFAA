@@ -9,15 +9,23 @@
     android:background="@drawable/bg_item_user_github"
     android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/iv_user"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_user_photo"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:scaleType="centerCrop"
+        app:cardElevation="0dp"
+        app:cardCornerRadius="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription"
-        tools:src="@tools:sample/avatars" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_user"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            tools:src="@tools:sample/avatars"
+            tools:ignore="ContentDescription" />
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/tv_user_name"
@@ -28,7 +36,7 @@
         android:maxLines="2"
         android:ellipsize="end"
         app:layout_constraintEnd_toStartOf="@+id/btn_user_share"
-        app:layout_constraintStart_toEndOf="@+id/iv_user"
+        app:layout_constraintStart_toEndOf="@+id/cv_user_photo"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Jake Wharton" />
 
@@ -66,7 +74,7 @@
         android:ellipsize="end"
         app:layout_constraintEnd_toStartOf="@+id/guideline_followers"
         app:layout_constraintStart_toStartOf="@+id/tv_repositories"
-        app:layout_constraintTop_toBottomOf="@+id/iv_user"
+        app:layout_constraintTop_toBottomOf="@+id/cv_user_photo"
         tools:text="102" />
 
     <TextView
@@ -115,8 +123,8 @@
 
     <ImageView
         android:id="@+id/ic_following"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:contentDescription="@string/content_description_icon_repository"
         android:src="@drawable/ic_baseline_following_24"
         app:layout_constraintStart_toStartOf="@+id/guideline_following"

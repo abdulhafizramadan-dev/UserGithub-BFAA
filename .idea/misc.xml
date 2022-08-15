@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/bg_item_user_github.xml" value="0.2975" />
         <entry key="app/src/main/res/drawable/ic_baseline_book_24.xml" value="0.2975" />
+        <entry key="app/src/main/res/drawable/ic_logo_toolbar.xml" value="0.1905" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.340625" />
         <entry key="app/src/main/res/layout/item_user_github.xml" value="0.67" />
       </map>
