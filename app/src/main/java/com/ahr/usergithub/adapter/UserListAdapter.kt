@@ -9,7 +9,7 @@ import com.ahr.usergithub.data.User
 import com.ahr.usergithub.databinding.ItemUserGithubBinding
 import com.bumptech.glide.Glide
 
-class UserListAdapter : ListAdapter<User, UserListAdapter.UserViewHolder>(UserDiffCallback) {
+class UserListAdapter(private val onItemClickListener: OnItemClickListener) : ListAdapter<User, UserListAdapter.UserViewHolder>(UserDiffCallback) {
 
     private companion object UserDiffCallback : DiffUtil.ItemCallback<User>() {
         override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
@@ -31,6 +31,9 @@ class UserListAdapter : ListAdapter<User, UserListAdapter.UserViewHolder>(UserDi
             binding.tvUserRepositories.text = user.repository
             binding.tvUserFollowers.text = user.follower
             binding.tvUserFollowing.text = user.following
+
+            itemView.setOnClickListener { onItemClickListener.onItemClickListener(user) }
+            binding.btnUserShare.setOnClickListener { onItemClickListener.onBtnShareClicked(user) }
         }
     }
 
@@ -41,5 +44,10 @@ class UserListAdapter : ListAdapter<User, UserListAdapter.UserViewHolder>(UserDi
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         holder.bind(getItem(position))
+    }
+
+    interface OnItemClickListener {
+        fun onBtnShareClicked(user: User)
+        fun onItemClickListener(user: User)
     }
 }

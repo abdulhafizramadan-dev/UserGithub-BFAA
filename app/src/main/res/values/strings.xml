@@ -9,6 +9,14 @@
     <string name="dummy_username">\@JakeWharton</string>
     <string name="detail">Detail</string>
 
+    <string name="share_user_title">Share this user!</string>
+
+    <string name="format_username">\@%s</string>
+    <string name="format_repositories">%s\nRepositories</string>
+    <string name="format_followers">%s\nFollowers</string>
+    <string name="format_following">%s\nFollowing</string>
+    <string name="user_link">https://github.com/%s</string>
+
     <!--  User Github Strings  -->
     <string-array name="username">
         <item>JakeWharton</item>

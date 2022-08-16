@@ -41,37 +41,39 @@
                 tools:src="@tools:sample/avatars" />
 
             <TextView
+                style="@style/DetailTitleTextAppearance"
                 android:id="@+id/tv_user_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
+                android:textStyle="bold"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:textSize="20sp"
                 app:layout_constraintEnd_toStartOf="@+id/iv_user"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/iv_user"
                 tools:text="Jake Wharton" />
 
             <TextView
+                style="@style/DetailSubTitleTextAppearance"
                 android:id="@+id/tv_user_username"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/tv_user_name"
                 app:layout_constraintStart_toStartOf="@+id/tv_user_name"
                 app:layout_constraintTop_toBottomOf="@+id/tv_user_name"
                 tools:text="@string/dummy_username" />
 
             <TextView
+                style="@style/DetailCaptionTextAppearance"
                 android:id="@+id/tv_user_location"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:drawablePadding="8dp"
+                android:layout_marginStart="-3dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textSize="14sp"
@@ -92,25 +94,28 @@
                 app:layout_constraintTop_toBottomOf="@+id/iv_user" />
 
             <TextView
+                style="@style/DetailTitleTextAppearance"
                 android:id="@+id/tv_detail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/detail"
+                android:textStyle="bold"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider" />
 
             <TextView
+                style="@style/DetailBodyTextAppearance"
                 android:id="@+id/tv_user_company"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_item_user_detail"
-                android:textSize="14sp"
                 android:gravity="center_vertical"
                 android:textStyle="bold"
                 android:drawablePadding="16dp"
@@ -118,21 +123,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_detail"
                 app:drawableStartCompat="@drawable/ic_baseline_company_24"
-                tools:text="Google, Inc." />
+                tools:text="Google, Inc."
+                tools:ignore="RtlSymmetry" />
 
             <TextView
+                style="@style/DetailBodyTextAppearance"
                 android:id="@+id/tv_user_followers"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/bg_item_user_detail"
-                android:textSize="14sp"
                 android:gravity="center_vertical"
                 android:textStyle="bold"
                 android:drawablePadding="16dp"
-                android:padding="10dp"
-                android:paddingStart="23dp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_user_company"
@@ -141,15 +146,14 @@
                 tools:ignore="RtlSymmetry" />
 
             <TextView
+                style="@style/DetailBodyTextAppearance"
                 android:id="@+id/tv_user_repositories"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
-                android:padding="10dp"
-                android:paddingStart="23dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/bg_item_user_detail"
-                android:textSize="14sp"
                 android:gravity="center_vertical"
                 android:textStyle="bold"
                 android:drawablePadding="16dp"
@@ -161,15 +165,14 @@
                 tools:ignore="RtlSymmetry" />
 
             <TextView
+                style="@style/DetailBodyTextAppearance"
                 android:id="@+id/tv_user_following"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
-                android:padding="10dp"
-                android:paddingStart="23dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/bg_item_user_detail"
-                android:textSize="14sp"
                 android:gravity="center_vertical"
                 android:textStyle="bold"
                 android:drawablePadding="16dp"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--  Home Screen Style  -->
     <style name="CardTitleTextAppearance" parent="TextAppearance.MaterialComponents.Subtitle1">
         <item name="fontFamily">@font/roboto_font_family</item>
     </style>
@@ -13,5 +14,22 @@
     </style>
     <style name="CardCaptionTextAppearance.Bold">
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--  Detail Screen Style  -->
+    <style name="DetailTitleTextAppearance" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/roboto_font_family</item>
+    </style>
+    <style name="DetailSubTitleTextAppearance" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/roboto_font_family</item>
+        <item name="android:textColor">#AEACAC</item>
+    </style>
+    <style name="DetailCaptionTextAppearance" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/roboto_font_family</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+    <style name="DetailBodyTextAppearance" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/roboto_font_family</item>
+        <item name="fontWeight">500</item>
     </style>
 </resources>
