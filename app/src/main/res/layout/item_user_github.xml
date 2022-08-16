@@ -1,190 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
     android:layout_marginTop="8dp"
-    android:background="@drawable/bg_item_user_github"
-    android:padding="16dp">
+    android:layout_marginHorizontal="16dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardElevation="0dp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cv_user_photo"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        app:cardElevation="0dp"
-        app:cardCornerRadius="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_item_user_github"
+        android:padding="16dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_user_photo"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_user"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                tools:src="@tools:sample/avatars"
+                tools:ignore="ContentDescription" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:textSize="16sp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toStartOf="@+id/btn_user_share"
+            app:layout_constraintStart_toEndOf="@+id/cv_user_photo"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Jake Wharton" />
+
+        <TextView
+            android:id="@+id/tv_user_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="@+id/tv_user_name"
+            app:layout_constraintStart_toStartOf="@+id/tv_user_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_user_name"
+            tools:text="Pittsburgh, PA, USA" />
 
         <ImageView
-            android:id="@+id/iv_user"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            tools:src="@tools:sample/avatars"
-            tools:ignore="ContentDescription" />
-    </com.google.android.material.card.MaterialCardView>
+            android:id="@+id/ic_repository"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/content_description_icon_repository"
+            android:src="@drawable/ic_baseline_book_24"
+            app:layout_constraintStart_toStartOf="@+id/guideline_repository"
+            app:layout_constraintTop_toTopOf="@+id/tv_user_repositories" />
 
-    <TextView
-        android:id="@+id/tv_user_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:textSize="16sp"
-        android:maxLines="2"
-        android:ellipsize="end"
-        app:layout_constraintEnd_toStartOf="@+id/btn_user_share"
-        app:layout_constraintStart_toEndOf="@+id/cv_user_photo"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Jake Wharton" />
+        <TextView
+            android:id="@+id/tv_user_repositories"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_followers"
+            app:layout_constraintStart_toStartOf="@+id/tv_repositories"
+            app:layout_constraintTop_toBottomOf="@+id/cv_user_photo"
+            tools:text="102" />
 
-    <TextView
-        android:id="@+id/tv_user_location"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textSize="14sp"
-        android:maxLines="1"
-        android:ellipsize="end"
-        app:layout_constraintEnd_toEndOf="@+id/tv_user_name"
-        app:layout_constraintStart_toStartOf="@+id/tv_user_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_user_name"
-        tools:text="Pittsburgh, PA, USA" />
+        <TextView
+            android:id="@+id/tv_repositories"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/repositories"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/ic_repository"
+            app:layout_constraintTop_toBottomOf="@+id/tv_user_repositories"
+            tools:ignore="SmallSp" />
 
-    <ImageView
-        android:id="@+id/ic_repository"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="@string/content_description_icon_repository"
-        android:src="@drawable/ic_baseline_book_24"
-        app:layout_constraintStart_toStartOf="@+id/guideline_repository"
-        app:layout_constraintTop_toTopOf="@+id/tv_user_repositories" />
+        <ImageView
+            android:id="@+id/ic_followers"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:contentDescription="@string/content_description_icon_repository"
+            android:src="@drawable/ic_baseline_people_24"
+            app:layout_constraintStart_toStartOf="@+id/guideline_followers"
+            app:layout_constraintTop_toTopOf="@+id/ic_repository" />
 
-    <TextView
-        android:id="@+id/tv_user_repositories"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:ellipsize="end"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_followers"
-        app:layout_constraintStart_toStartOf="@+id/tv_repositories"
-        app:layout_constraintTop_toBottomOf="@+id/cv_user_photo"
-        tools:text="102" />
+        <TextView
+            android:id="@+id/tv_user_followers"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_following"
+            app:layout_constraintStart_toStartOf="@+id/tv_followers"
+            app:layout_constraintTop_toTopOf="@+id/tv_user_repositories"
+            tools:text="56995" />
 
-    <TextView
-        android:id="@+id/tv_repositories"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/repositories"
-        android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/ic_repository"
-        app:layout_constraintTop_toBottomOf="@+id/tv_user_repositories"
-        tools:ignore="SmallSp" />
+        <TextView
+            android:id="@+id/tv_followers"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/followers"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/ic_followers"
+            app:layout_constraintTop_toBottomOf="@+id/tv_user_followers"
+            tools:ignore="SmallSp" />
 
-    <ImageView
-        android:id="@+id/ic_followers"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:contentDescription="@string/content_description_icon_repository"
-        android:src="@drawable/ic_baseline_people_24"
-        app:layout_constraintStart_toStartOf="@+id/guideline_followers"
-        app:layout_constraintTop_toTopOf="@+id/ic_repository" />
+        <ImageView
+            android:id="@+id/ic_following"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:contentDescription="@string/content_description_icon_repository"
+            android:src="@drawable/ic_baseline_following_24"
+            app:layout_constraintStart_toStartOf="@+id/guideline_following"
+            app:layout_constraintTop_toTopOf="@+id/ic_followers" />
 
-    <TextView
-        android:id="@+id/tv_user_followers"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:ellipsize="end"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_following"
-        app:layout_constraintStart_toStartOf="@+id/tv_followers"
-        app:layout_constraintTop_toTopOf="@+id/tv_user_repositories"
-        tools:text="56995" />
+        <TextView
+            android:id="@+id/tv_user_following"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_following"
+            app:layout_constraintTop_toTopOf="@+id/tv_user_followers"
+            tools:text="12" />
 
-    <TextView
-        android:id="@+id/tv_followers"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/followers"
-        android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/ic_followers"
-        app:layout_constraintTop_toBottomOf="@+id/tv_user_followers"
-        tools:ignore="SmallSp" />
+        <TextView
+            android:id="@+id/tv_following"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/following"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ic_following"
+            app:layout_constraintTop_toBottomOf="@+id/tv_user_following"
+            tools:ignore="SmallSp" />
 
-    <ImageView
-        android:id="@+id/ic_following"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:contentDescription="@string/content_description_icon_repository"
-        android:src="@drawable/ic_baseline_following_24"
-        app:layout_constraintStart_toStartOf="@+id/guideline_following"
-        app:layout_constraintTop_toTopOf="@+id/ic_followers" />
+        <ImageButton
+            android:id="@+id/btn_user_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/share"
+            android:src="@drawable/ic_baseline_share_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_user_following"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:ellipsize="end"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_following"
-        app:layout_constraintTop_toTopOf="@+id/tv_user_followers"
-        tools:text="12" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_repository"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.0" />
 
-    <TextView
-        android:id="@+id/tv_following"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/following"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ic_following"
-        app:layout_constraintTop_toBottomOf="@+id/tv_user_following"
-        tools:ignore="SmallSp" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_followers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.35" />
 
-    <ImageButton
-        android:id="@+id/btn_user_share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/share"
-        android:src="@drawable/ic_baseline_share_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_repository"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.0" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_followers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.4" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_following"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_following"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
