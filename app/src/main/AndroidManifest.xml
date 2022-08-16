@@ -17,6 +17,7 @@
             android:name=".DetailUserActivity"
             android:exported="false" />
         <activity
+            android:theme="@style/Theme.UserGithub.SplashScreen"
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

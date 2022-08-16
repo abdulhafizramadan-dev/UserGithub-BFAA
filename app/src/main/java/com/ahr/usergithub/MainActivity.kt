@@ -3,6 +3,7 @@ package com.ahr.usergithub
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.ahr.usergithub.adapter.UserListAdapter
 import com.ahr.usergithub.data.User
 import com.ahr.usergithub.data.UserData
@@ -17,10 +18,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        Log.d("TAG", "onCreate: $listUser")
         setupRecyclerView()
     }
 
