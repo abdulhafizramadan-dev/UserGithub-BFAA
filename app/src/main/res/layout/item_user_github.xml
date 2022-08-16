@@ -35,11 +35,11 @@
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
+            style="@style/CardTitleTextAppearance"
             android:id="@+id/tv_user_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:textSize="16sp"
             android:maxLines="2"
             android:ellipsize="end"
             app:layout_constraintEnd_toStartOf="@+id/btn_user_share"
@@ -48,11 +48,11 @@
             tools:text="Jake Wharton" />
 
         <TextView
+            style="@style/CardSubTitleTextAppearance"
             android:id="@+id/tv_user_location"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textSize="14sp"
             android:maxLines="1"
             android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="@+id/tv_user_name"
@@ -71,13 +71,12 @@
             app:layout_constraintTop_toTopOf="@+id/tv_user_repositories" />
 
         <TextView
+            style="@style/CardCaptionTextAppearance.Bold"
             android:id="@+id/tv_user_repositories"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:textSize="12sp"
-            android:textStyle="bold"
             android:ellipsize="end"
             app:layout_constraintEnd_toStartOf="@+id/guideline_followers"
             app:layout_constraintStart_toStartOf="@+id/tv_repositories"
@@ -85,15 +84,14 @@
             tools:text="102" />
 
         <TextView
+            style="@style/CardCaptionTextAppearance"
             android:id="@+id/tv_repositories"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/repositories"
-            android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/ic_repository"
-            app:layout_constraintTop_toBottomOf="@+id/tv_user_repositories"
-            tools:ignore="SmallSp" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_user_repositories" />
 
         <ImageView
             android:id="@+id/ic_followers"
@@ -105,12 +103,11 @@
             app:layout_constraintTop_toTopOf="@+id/ic_repository" />
 
         <TextView
+            style="@style/CardCaptionTextAppearance.Bold"
             android:id="@+id/tv_user_followers"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:textSize="12sp"
-            android:textStyle="bold"
             android:ellipsize="end"
             app:layout_constraintEnd_toStartOf="@+id/guideline_following"
             app:layout_constraintStart_toStartOf="@+id/tv_followers"
@@ -118,15 +115,14 @@
             tools:text="56995" />
 
         <TextView
+            style="@style/CardCaptionTextAppearance"
             android:id="@+id/tv_followers"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/followers"
-            android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/ic_followers"
-            app:layout_constraintTop_toBottomOf="@+id/tv_user_followers"
-            tools:ignore="SmallSp" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_user_followers" />
 
         <ImageView
             android:id="@+id/ic_following"
@@ -138,11 +134,10 @@
             app:layout_constraintTop_toTopOf="@+id/ic_followers" />
 
         <TextView
+            style="@style/CardCaptionTextAppearance.Bold"
             android:id="@+id/tv_user_following"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textStyle="bold"
             android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_following"
@@ -150,16 +145,15 @@
             tools:text="12" />
 
         <TextView
+            style="@style/CardCaptionTextAppearance"
             android:id="@+id/tv_following"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/following"
-            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ic_following"
-            app:layout_constraintTop_toBottomOf="@+id/tv_user_following"
-            tools:ignore="SmallSp" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_user_following" />
 
         <ImageButton
             android:id="@+id/btn_user_share"
