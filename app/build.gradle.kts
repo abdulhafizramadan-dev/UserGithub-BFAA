@@ -1,3 +1,5 @@
+import com.ahr.usergithub.ConfigurationData
+import com.ahr.usergithub.ConfigurationData.applicationId
 import com.ahr.usergithub.Libs
 import com.ahr.usergithub.TestLibs
 
@@ -8,14 +10,14 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = ConfigurationData.compileSdk
 
     defaultConfig {
-        applicationId = "com.ahr.usergithub"
-        minSdk = 21
-        targetSdk = 32
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = ConfigurationData.applicationId
+        minSdk = ConfigurationData.minSdk
+        targetSdk = ConfigurationData.targetSdk
+        versionCode = ConfigurationData.versionCode
+        versionName = ConfigurationData.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
