@@ -2,6 +2,7 @@ import com.ahr.usergithub.ConfigurationData
 import com.ahr.usergithub.ConfigurationData.applicationId
 import com.ahr.usergithub.Libs
 import com.ahr.usergithub.TestLibs
+import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
     id("com.android.application")
@@ -12,6 +13,9 @@ plugins {
 android {
     compileSdk = ConfigurationData.compileSdk
 
+    val properties = Properties()
+    properties.load(project.rootProject.file("local.properties").inputStream())
+
     defaultConfig {
         applicationId = ConfigurationData.applicationId
         minSdk = ConfigurationData.minSdk
@@ -20,6 +24,9 @@ android {
         versionName = ConfigurationData.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "BASE_URL", properties.getProperty("github.api.baseurl"))
+        buildConfigField("String", "GITHUB_TOKEN", properties.getProperty("github.api.token"))
     }
 
     buildTypes {
@@ -46,13 +53,37 @@ android {
 
 dependencies {
 
+    // Jetpack Library
     implementation(Libs.AndroidX.coreKtx)
-    implementation(Libs.AndroidX.splashscreen)
     implementation(Libs.AndroidX.appcompat)
+    implementation(Libs.AndroidX.splashscreen)
     implementation(Libs.AndroidX.constraintlayout)
+    implementation(Libs.AndroidX.navigationUi)
+    implementation(Libs.AndroidX.navigationFragment)
+
+    // KTX Library
+    implementation(Libs.Ktx.livedataKtx)
+
+    // Google Library
     implementation(Libs.Google.material)
+
+    // Square Library
+    implementation(Libs.Square.gson)
+    implementation(Libs.Square.retrofit)
+    implementation(Libs.Square.loggingInterceptor)
+
+    // Coroutines Library
+    implementation(Libs.Coroutines.core)
+    implementation(Libs.Coroutines.android)
+
+    // Networking Library
+    implementation(Libs.networkResponseAdapter)
     implementation(Libs.glide)
+
+    // View Library
     implementation(Libs.circleimageview)
+
+    // Testing Library
     testImplementation(TestLibs.Junit.junit)
     androidTestImplementation(TestLibs.Junit.extJunit)
     androidTestImplementation(TestLibs.Espresso.espresso_core)

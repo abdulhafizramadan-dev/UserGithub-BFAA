@@ -13,7 +13,7 @@ class UserListAdapter(private val onItemClickListener: OnItemClickListener) : Li
 
     private companion object UserDiffCallback : DiffUtil.ItemCallback<User>() {
         override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
-            return oldItem.username == newItem.username
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
@@ -23,14 +23,15 @@ class UserListAdapter(private val onItemClickListener: OnItemClickListener) : Li
 
     inner class UserViewHolder(private val binding: ItemUserGithubBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) {
-            Glide.with(binding.ivUser)
-                .load(user.avatar)
-                .into(binding.ivUser)
             binding.tvUserName.text = user.name
             binding.tvUserLocation.text = user.location
-            binding.tvUserRepositories.text = user.repository
-            binding.tvUserFollowers.text = user.follower
-            binding.tvUserFollowing.text = user.following
+            binding.tvUserRepositories.text = user.publicRepos.toString()
+            binding.tvUserFollowers.text = user.followers.toString()
+            binding.tvUserFollowing.text = user.following.toString()
+
+            Glide.with(binding.ivUser)
+                .load(user.avatarUrl)
+                .into(binding.ivUser)
 
             itemView.setOnClickListener { onItemClickListener.onItemClickListener(user) }
             binding.btnUserShare.setOnClickListener { onItemClickListener.onBtnShareClicked(user) }

@@ -1,10 +1,10 @@
 package com.ahr.usergithub
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.ahr.usergithub.data.User
 import com.ahr.usergithub.databinding.ActivityDetailUserBinding
 import com.bumptech.glide.Glide
@@ -48,14 +48,14 @@ class DetailUserActivity : AppCompatActivity() {
 
     private fun setupDetailScreen() {
         Glide.with(this)
-            .load(user?.avatar)
+            .load(user?.avatarUrl)
             .into(binding.ivUser)
         binding.tvUserName.text = user?.name
-        binding.tvUserUsername.text = getString(R.string.format_username, user?.username)
+        binding.tvUserUsername.text = getString(R.string.format_username, user?.login)
         binding.tvUserLocation.text = user?.location
         binding.tvUserCompany.text = user?.company
-        binding.tvUserRepositories.text = getString(R.string.format_repositories, user?.repository)
-        binding.tvUserFollowers.text = getString(R.string.format_followers, user?.follower)
+        binding.tvUserRepositories.text = getString(R.string.format_repositories, user?.publicRepos)
+        binding.tvUserFollowers.text = getString(R.string.format_followers, user?.followers)
         binding.tvUserFollowing.text = getString(R.string.format_following, user?.following)
     }
 
@@ -63,7 +63,7 @@ class DetailUserActivity : AppCompatActivity() {
         val sendIntent = Intent()
             .apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, getString(R.string.user_link, user?.username))
+                putExtra(Intent.EXTRA_TEXT, user?.url)
                 type = "text/plain"
             }
         val shareIntent = Intent.createChooser(sendIntent, getString(R.string.share_user_title))
