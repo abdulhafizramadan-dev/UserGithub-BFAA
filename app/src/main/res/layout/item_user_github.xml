@@ -72,11 +72,11 @@
             app:layout_constraintTop_toTopOf="@+id/tv_user_repositories" />
 
         <TextView
-            style="@style/CardCaptionTextAppearance.Bold"
             android:id="@+id/tv_user_repositories"
+            style="@style/CardCaptionTextAppearance.Bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
             app:layout_constraintEnd_toStartOf="@+id/guideline_followers"

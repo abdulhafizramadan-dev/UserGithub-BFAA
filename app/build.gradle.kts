@@ -82,6 +82,7 @@ dependencies {
 
     // View Library
     implementation(Libs.circleimageview)
+    implementation(Libs.lottie)
 
     // Testing Library
     testImplementation(TestLibs.Junit.junit)

@@ -23,6 +23,7 @@ private object LibsVersion {
     const val glide = "4.11.0"
     const val circleimageview = "3.1.0"
     const val networkResponseAdapter = "5.0.0"
+    const val lottie = "5.2.0"
 }
 
 object TestLibsVersion {
@@ -62,6 +63,7 @@ object Libs {
     const val glide = "com.github.bumptech.glide:glide:${LibsVersion.glide}"
     const val circleimageview = "de.hdodenhof:circleimageview:${LibsVersion.circleimageview}"
     const val networkResponseAdapter = "com.github.haroldadmin:NetworkResponseAdapter:${LibsVersion.networkResponseAdapter}"
+    const val lottie = "com.airbnb.android:lottie:${LibsVersion.lottie}"
 }
 
 object TestLibs {

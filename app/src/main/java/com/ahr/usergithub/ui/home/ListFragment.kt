@@ -2,11 +2,10 @@ package com.ahr.usergithub.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ahr.usergithub.BuildConfig
 import com.ahr.usergithub.R
@@ -18,10 +17,11 @@ import com.ahr.usergithub.data.network.RemoteDataSource
 import com.ahr.usergithub.data.network.service.GithubConfig
 import com.ahr.usergithub.databinding.FragmentListBinding
 import com.ahr.usergithub.ui.UserGithubViewModelFactory
+import com.ahr.usergithub.util.LottieViewType
 
 
 class ListFragment : Fragment(), UserListAdapter.OnItemClickListener {
-    private val TAG = "ListFragment"
+
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
 
@@ -46,18 +46,24 @@ class ListFragment : Fragment(), UserListAdapter.OnItemClickListener {
 
         setupRecyclerView()
 
-        listViewModel.getListUser(BuildConfig.GITHUB_TOKEN)
+        if (savedInstanceState == null) {
+            listViewModel.getListUser(BuildConfig.GITHUB_TOKEN)
+        }
 
         listViewModel.listUser.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Response.Success -> {
+                    toggleLottieView(state = false)
+                    toggleTextError(false)
                     userListAdapter.submitList(response.data)
                 }
                 is Response.Error -> {
-                    Log.d(TAG, "onViewCreated: Error = ${response.error}")
+                    toggleLottieView(LottieViewType.Error, true)
+                    toggleTextError(message = response.error)
                 }
                 is Response.Loading -> {
-                    Log.d(TAG, "onViewCreated: Loading")
+                    toggleLottieView()
+                    toggleTextError(false)
                 }
             }
         }
@@ -65,6 +71,21 @@ class ListFragment : Fragment(), UserListAdapter.OnItemClickListener {
 
     private fun setupRecyclerView() {
         binding.rvUserGithub.adapter = userListAdapter
+    }
+
+    private fun toggleLottieView(type: LottieViewType = LottieViewType.Loading, state: Boolean = true) {
+        binding.lottieView.visibility = if (state) View.VISIBLE else View.GONE
+        binding.lottieView.setAnimation(type.rawRes)
+        if (state) {
+            binding.lottieView.resumeAnimation()
+        } else {
+            binding.lottieView.pauseAnimation()
+        }
+    }
+
+    private fun toggleTextError(state: Boolean = true, message: String? = null) {
+        binding.tvTextError.visibility = if (state) View.VISIBLE else View.GONE
+        binding.tvTextError.text = message
     }
 
     override fun onBtnShareClicked(user: User) {

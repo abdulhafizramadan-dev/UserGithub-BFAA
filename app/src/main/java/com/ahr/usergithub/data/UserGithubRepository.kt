@@ -39,14 +39,13 @@ class UserGithubRepository(
                             }
                         }
                     }
+                    emit(Response.Success(listUser))
                 }
                 is Response.Error -> {
                     emit(Response.Error(listUserResponse.error))
                 }
                 is Response.Loading -> {}
             }
-
-            emit(Response.Success(listUser))
         }
     }
 }
