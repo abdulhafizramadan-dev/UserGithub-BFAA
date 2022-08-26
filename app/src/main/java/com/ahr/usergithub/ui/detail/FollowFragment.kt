@@ -1,4 +1,4 @@
-package com.ahr.usergithub.ui.home
+package com.ahr.usergithub.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
@@ -16,19 +16,30 @@ import com.ahr.usergithub.data.User
 import com.ahr.usergithub.data.UserGithubRepository
 import com.ahr.usergithub.data.network.RemoteDataSource
 import com.ahr.usergithub.data.network.service.GithubConfig
-import com.ahr.usergithub.databinding.FragmentListBinding
+import com.ahr.usergithub.databinding.FragmentFollowBinding
 import com.ahr.usergithub.ui.UserGithubViewModelFactory
 import com.ahr.usergithub.util.LottieViewType
 
+class FollowFragment : Fragment(), UserListAdapter.OnItemClickListener {
 
-class ListFragment : Fragment(), UserListAdapter.OnItemClickListener {
+    companion object {
+        const val EXTRA_FOLLOW = "extra_follow"
+        const val EXTRA_USERNAME = "extra_username"
+    }
 
-    private var _binding: FragmentListBinding? = null
+    private var _binding: FragmentFollowBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var userListAdapter: UserListAdapter
 
-    private val listViewModel: ListViewModel by viewModels {
+    private val username: String? by lazy {
+        arguments?.getString(EXTRA_USERNAME)
+    }
+    private val follow: String? by lazy {
+        arguments?.getString(EXTRA_FOLLOW)
+    }
+
+    private val followViewModel: FollowViewModel by viewModels {
         UserGithubViewModelFactory(
             UserGithubRepository.getInstance(RemoteDataSource.getInstance(GithubConfig.getService()))
         )
@@ -38,7 +49,7 @@ class ListFragment : Fragment(), UserListAdapter.OnItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentListBinding.inflate(inflater, container, false)
+        _binding = FragmentFollowBinding.inflate(inflater, container, false)
         return _binding?.root
     }
 
@@ -49,19 +60,21 @@ class ListFragment : Fragment(), UserListAdapter.OnItemClickListener {
 
         setupRecyclerView()
 
-        if (listViewModel.firstLoad.value == true) {
-            listViewModel.getListUser(BuildConfig.GITHUB_TOKEN)
+        if (followViewModel.firstLoad.value == true) {
+            if (username != null && follow != null) {
+                followViewModel.getListUserFollow(BuildConfig.GITHUB_TOKEN, username!!, follow!!)
+            }
         }
 
-        observeListUser()
+        observeListFollow()
     }
 
     private fun setupRecyclerView() {
-        binding.rvUserGithub.adapter = userListAdapter
+        binding.rvUserFollow.adapter = userListAdapter
     }
 
-    private fun observeListUser() {
-        listViewModel.listUser.observe(viewLifecycleOwner) { response ->
+    private fun observeListFollow() {
+        followViewModel.listFollow.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Response.Success -> {
                     toggleLottieView(state = false)
@@ -78,6 +91,7 @@ class ListFragment : Fragment(), UserListAdapter.OnItemClickListener {
                 }
             }
         }
+
     }
 
     private fun toggleLottieView(type: LottieViewType = LottieViewType.Loading, state: Boolean = true) {
@@ -107,7 +121,7 @@ class ListFragment : Fragment(), UserListAdapter.OnItemClickListener {
     }
 
     override fun onItemClickListener(user: User) {
-        val toDetailFragmentDirections = ListFragmentDirections.actionListFragmentToDetailFragment(user)
+        val toDetailFragmentDirections = DetailFragmentDirections.actionDetailFragmentSelf(user)
         findNavController().navigate(toDetailFragmentDirections)
     }
 

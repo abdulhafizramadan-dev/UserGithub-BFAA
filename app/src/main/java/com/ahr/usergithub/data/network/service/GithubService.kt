@@ -15,6 +15,13 @@ interface GithubService {
         @Header("Authorization") token: String
     ): NetworkResponse<List<ListUserItemResponse>, CommonErrorResponse>
 
+    @GET("users/{username}/{follow}")
+    suspend fun getUserFollow(
+        @Header("Authorization") token: String,
+        @Path("username") username: String,
+        @Path("follow") follow: String
+    ): NetworkResponse<List<ListUserItemResponse>, CommonErrorResponse>
+
     @GET("users/{username}")
     suspend fun getUser(
         @Header("Authorization") token: String,

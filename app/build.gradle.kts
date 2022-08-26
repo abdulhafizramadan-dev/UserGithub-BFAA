@@ -1,5 +1,4 @@
 import com.ahr.usergithub.ConfigurationData
-import com.ahr.usergithub.ConfigurationData.applicationId
 import com.ahr.usergithub.Libs
 import com.ahr.usergithub.TestLibs
 import org.jetbrains.kotlin.konan.properties.Properties
@@ -8,6 +7,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {

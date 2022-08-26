@@ -1,6 +1,6 @@
 package com.ahr.usergithub
 
-private object LibsVersion {
+object LibsVersion {
     object AndroidX {
         const val coreKtx = "1.8.0"
         const val appcompat = "1.5.0"

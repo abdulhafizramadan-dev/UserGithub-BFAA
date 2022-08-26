@@ -12,10 +12,8 @@
     <string name="share_user_title">Share this user!</string>
 
     <string name="format_username">\@%s</string>
-    <string name="format_repositories">%d\nRepositories</string>
-    <string name="format_followers">%d\nFollowers</string>
-    <string name="format_following">%d\nFollowing</string>
+    <string name="format_repositories">%d Repositories</string>
+    <string name="format_followers">%d Followers</string>
+    <string name="format_following">%d Following</string>
     <string name="user_link">https://github.com/%s</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

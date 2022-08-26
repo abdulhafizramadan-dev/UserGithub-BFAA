@@ -3,6 +3,7 @@ package com.ahr.usergithub.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ahr.usergithub.data.UserGithubRepository
+import com.ahr.usergithub.ui.detail.FollowViewModel
 import com.ahr.usergithub.ui.home.ListViewModel
 
 class UserGithubViewModelFactory(
@@ -13,6 +14,8 @@ class UserGithubViewModelFactory(
         return when {
             modelClass.isAssignableFrom(ListViewModel::class.java) ->
                 ListViewModel(userGithubRepository) as T
+            modelClass.isAssignableFrom(FollowViewModel::class.java) ->
+                FollowViewModel(userGithubRepository) as T
             else -> throw IllegalArgumentException()
         }
     }

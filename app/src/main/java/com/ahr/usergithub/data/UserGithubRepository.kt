@@ -10,6 +10,17 @@ class UserGithubRepository(
     private val remoteDataSource: RemoteDataSource
 ) {
 
+    companion object {
+        private var INSTANCE: UserGithubRepository? = null
+
+        fun getInstance(remoteDataSource: RemoteDataSource): UserGithubRepository =
+            INSTANCE ?: synchronized(this) {
+                UserGithubRepository(remoteDataSource).apply {
+                    INSTANCE = this
+                }
+            }
+    }
+
     private fun getListUserResponse(token: String): Flow<Response<List<ListUserItemResponse>>> = flow {
         when (val result = remoteDataSource.getListUser(token)) {
             is Result.Success -> {
@@ -48,4 +59,44 @@ class UserGithubRepository(
             }
         }
     }
+
+    private fun getListUserFollowResponse(token: String, username: String, follow: String): Flow<Response<List<ListUserItemResponse>>> = flow {
+        when (val result = remoteDataSource.getListUserFollow(token, username, follow)) {
+            is Result.Success -> {
+                emit(Response.Success(result.data))
+            }
+            is Result.Error -> {
+                emit(Response.Error(result.error))
+            }
+        }
+    }
+
+    fun getListUserFollow(token: String, username: String, follow: String): Flow<Response<List<User>>> = flow {
+        emit(Response.Loading)
+        getListUserFollowResponse(token, username, follow).collect { listUserResponse ->
+            val listUser = arrayListOf<User>()
+
+            when (listUserResponse) {
+                is Response.Success -> {
+                    listUserResponse.data.forEach {
+                        when (val result = remoteDataSource.getUser(token, it.login)) {
+                            is Result.Success -> {
+                                listUser.add(result.data.toDomain())
+                            }
+                            is Result.Error -> {
+                                emit(Response.Error(result.error))
+                                return@collect
+                            }
+                        }
+                    }
+                    emit(Response.Success(listUser))
+                }
+                is Response.Error -> {
+                    emit(Response.Error(listUserResponse.error))
+                }
+                is Response.Loading -> {}
+            }
+        }
+    }
+
 }

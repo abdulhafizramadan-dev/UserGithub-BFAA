@@ -16,9 +16,6 @@
         android:theme="@style/Theme.UserGithub"
         tools:targetApi="31">
         <activity
-            android:name=".DetailUserActivity"
-            android:exported="false" />
-        <activity
             android:theme="@style/Theme.UserGithub.SplashScreen"
             android:name=".MainActivity"
             android:exported="true">
