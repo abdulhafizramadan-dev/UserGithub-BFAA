@@ -1,10 +1,13 @@
 package com.ahr.usergithub.ui.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.ahr.usergithub.R
@@ -13,7 +16,7 @@ import com.ahr.usergithub.databinding.FragmentDetailBinding
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 
-class DetailFragment : Fragment() {
+class DetailFragment : Fragment(), Toolbar.OnMenuItemClickListener {
 
     companion object {
         @StringRes
@@ -42,16 +45,26 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupToolbar()
         setupDetailScreen()
         setupViewPager()
         setupTabLayout()
     }
 
+    private fun setupToolbar() {
+        binding.toolbar.apply {
+            setOnMenuItemClickListener(this@DetailFragment)
+            setNavigationOnClickListener {
+                activity?.onBackPressed()
+            }
+        }
+    }
+
     private fun setupDetailScreen() {
         binding.tvUserName.text = user.name
+        binding.tvUserCompany.text = user.company
         binding.tvUserUsername.text = user.login
         binding.tvUserLocation.text = user.location
-        binding.tvUserCompany.text = user.company
         binding.tvUserRepositories.text = getString(R.string.format_repositories, user.publicRepos)
         binding.tvUserFollowers.text = getString(R.string.format_followers, user.followers)
         binding.tvUserFollowing.text = getString(R.string.format_following, user.following)
@@ -74,6 +87,27 @@ class DetailFragment : Fragment() {
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.setText(TAB_TITLES[position])
         }.attach()
+    }
+
+    private fun shareUser() {
+        val sendIntent = Intent()
+            .apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, user.url)
+                type = "text/plain"
+            }
+        val shareIntent = Intent.createChooser(sendIntent, getString(R.string.share_user_title))
+        startActivity(shareIntent)
+    }
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.action_share -> {
+                shareUser()
+                true
+            }
+            else -> false
+        }
     }
 
     override fun onDestroyView() {
