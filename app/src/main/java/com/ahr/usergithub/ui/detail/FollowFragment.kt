@@ -1,6 +1,5 @@
 package com.ahr.usergithub.ui.detail
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ahr.usergithub.BuildConfig
-import com.ahr.usergithub.R
 import com.ahr.usergithub.adapter.UserListAdapter
 import com.ahr.usergithub.data.Response
 import com.ahr.usergithub.data.User
@@ -19,6 +17,7 @@ import com.ahr.usergithub.data.network.service.GithubConfig
 import com.ahr.usergithub.databinding.FragmentFollowBinding
 import com.ahr.usergithub.ui.UserGithubViewModelFactory
 import com.ahr.usergithub.util.LottieViewType
+import com.ahr.usergithub.util.shareUser
 
 class FollowFragment : Fragment(), UserListAdapter.OnItemClickListener {
 
@@ -110,14 +109,7 @@ class FollowFragment : Fragment(), UserListAdapter.OnItemClickListener {
     }
 
     override fun onBtnShareClicked(user: User) {
-        val sendIntent = Intent()
-            .apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, user.url)
-                type = "text/plain"
-            }
-        val shareIntent = Intent.createChooser(sendIntent, getString(R.string.share_user_title))
-        startActivity(shareIntent)
+        shareUser(user)
     }
 
     override fun onItemClickListener(user: User) {

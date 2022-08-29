@@ -1,6 +1,5 @@
 package com.ahr.usergithub.ui.detail
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -13,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.ahr.usergithub.R
 import com.ahr.usergithub.data.User
 import com.ahr.usergithub.databinding.FragmentDetailBinding
+import com.ahr.usergithub.util.shareUser
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -89,21 +89,10 @@ class DetailFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         }.attach()
     }
 
-    private fun shareUser() {
-        val sendIntent = Intent()
-            .apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, user.url)
-                type = "text/plain"
-            }
-        val shareIntent = Intent.createChooser(sendIntent, getString(R.string.share_user_title))
-        startActivity(shareIntent)
-    }
-
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.action_share -> {
-                shareUser()
+                shareUser(user)
                 true
             }
             else -> false
