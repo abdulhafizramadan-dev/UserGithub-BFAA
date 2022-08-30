@@ -1,33 +1,40 @@
-package com.ahr.usergithub.ui.home
+package com.ahr.usergithub.ui.search
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ahr.usergithub.BuildConfig
+import com.ahr.usergithub.R
 import com.ahr.usergithub.adapter.UserListAdapter
 import com.ahr.usergithub.data.Response
 import com.ahr.usergithub.data.User
 import com.ahr.usergithub.data.UserGithubRepository
 import com.ahr.usergithub.data.network.RemoteDataSource
 import com.ahr.usergithub.data.network.service.GithubConfig
-import com.ahr.usergithub.databinding.FragmentListBinding
+import com.ahr.usergithub.databinding.FragmentSearchBinding
 import com.ahr.usergithub.ui.UserGithubViewModelFactory
 import com.ahr.usergithub.util.LottieViewType
 import com.ahr.usergithub.util.shareUser
 
+class SearchFragment : Fragment(), Toolbar.OnMenuItemClickListener,
+    UserListAdapter.OnItemClickListener {
 
-class ListFragment : Fragment(), UserListAdapter.OnItemClickListener {
-
-    private var _binding: FragmentListBinding? = null
+    private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var userListAdapter: UserListAdapter
+    private lateinit var ime: InputMethodManager
 
-    private val listViewModel: ListViewModel by viewModels {
+    private val searchViewModel: SearchViewModel by viewModels {
         UserGithubViewModelFactory(
             UserGithubRepository.getInstance(RemoteDataSource.getInstance(GithubConfig.getService()))
         )
@@ -37,7 +44,7 @@ class ListFragment : Fragment(), UserListAdapter.OnItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentListBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return _binding?.root
     }
 
@@ -45,22 +52,39 @@ class ListFragment : Fragment(), UserListAdapter.OnItemClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         userListAdapter = UserListAdapter(this)
+        ime = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
+        setupToolbar()
+        setupTieSearch()
         setupRecyclerView()
-
-        if (listViewModel.firstLoad.value == true) {
-            listViewModel.getListUser(BuildConfig.GITHUB_TOKEN)
-        }
-
         observeListUser()
     }
 
+    private fun setupToolbar() {
+        binding.toolbar.apply {
+            setOnMenuItemClickListener(this@SearchFragment)
+            setNavigationOnClickListener {
+                activity?.onBackPressed()
+            }
+        }
+    }
+
+    private fun setupTieSearch() {
+        binding.tieSearch.apply {
+            imeOptions = EditorInfo.IME_ACTION_SEARCH
+            setOnEditorActionListener { _, _, _ ->
+                searchUser()
+                true
+            }
+        }
+    }
+
     private fun setupRecyclerView() {
-        binding.rvUserGithub.adapter = userListAdapter
+        binding.rvUser.adapter = userListAdapter
     }
 
     private fun observeListUser() {
-        listViewModel.listUser.observe(viewLifecycleOwner) { response ->
+        searchViewModel.listUser.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Response.Success -> {
                     toggleLottieView(state = false)
@@ -77,6 +101,7 @@ class ListFragment : Fragment(), UserListAdapter.OnItemClickListener {
                 }
             }
         }
+
     }
 
     private fun toggleLottieView(type: LottieViewType = LottieViewType.Loading, state: Boolean = true) {
@@ -94,12 +119,32 @@ class ListFragment : Fragment(), UserListAdapter.OnItemClickListener {
         binding.tvTextError.text = message
     }
 
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.action_search -> {
+                searchUser()
+                true
+            }
+            else -> false
+        }
+    }
+
+    private fun searchUser() {
+        binding.tieSearch.text?.toString()?.let { query ->
+            if (query.isNotBlank()) {
+                searchViewModel.searchUser(BuildConfig.GITHUB_TOKEN, query)
+                ime.hideSoftInputFromWindow(view?.windowToken, 0)
+            }
+        }
+
+    }
+
     override fun onBtnShareClicked(user: User) {
         shareUser(user)
     }
 
     override fun onItemClickListener(user: User) {
-        val toDetailFragmentDirections = ListFragmentDirections.actionListFragmentToDetailFragment(user)
+        val toDetailFragmentDirections = SearchFragmentDirections.actionSearchFragmentToDetailFragment(user)
         findNavController().navigate(toDetailFragmentDirections)
     }
 

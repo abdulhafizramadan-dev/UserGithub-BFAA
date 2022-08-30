@@ -16,4 +16,6 @@
     <string name="format_followers">%d Followers</string>
     <string name="format_following">%d Following</string>
     <string name="user_link">https://github.com/%s</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Search User</string>
 </resources>

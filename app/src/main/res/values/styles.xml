@@ -32,4 +32,13 @@
         <item name="fontFamily">@font/roboto_font_family</item>
         <item name="fontWeight">500</item>
     </style>
+
+    <!--  Text Field Styles  -->
+    <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputLayout</item>
+    </style>
+    <style name="ThemeOverlay.App.TextInputLayout" parent="">
+        <item name="colorPrimary">?colorOnSurface</item>
+        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense</item>
+    </style>
 </resources>
