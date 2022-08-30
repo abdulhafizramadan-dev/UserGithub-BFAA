@@ -87,9 +87,11 @@ class SearchFragment : Fragment(), Toolbar.OnMenuItemClickListener,
         searchViewModel.listUser.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Response.Success -> {
-                    toggleLottieView(state = false)
-                    toggleTextError(false)
-                    userListAdapter.submitList(response.data)
+                    response.data.apply {
+                        toggleLottieView(type = LottieViewType.SearchingNotFound, state = isEmpty())
+                        toggleTextError(isEmpty(), getString(R.string.searching_not_found))
+                        userListAdapter.submitList(this)
+                    }
                 }
                 is Response.Error -> {
                     toggleLottieView(LottieViewType.Error, true)
@@ -104,7 +106,7 @@ class SearchFragment : Fragment(), Toolbar.OnMenuItemClickListener,
 
     }
 
-    private fun toggleLottieView(type: LottieViewType = LottieViewType.Loading, state: Boolean = true) {
+    private fun toggleLottieView(type: LottieViewType = LottieViewType.Searching, state: Boolean = true) {
         binding.lottieView.visibility = if (state) View.VISIBLE else View.GONE
         binding.lottieView.setAnimation(type.rawRes)
         if (state) {

@@ -18,4 +18,5 @@
     <string name="user_link">https://github.com/%s</string>
     <string name="search">Search</string>
     <string name="search_hint">Search User</string>
+    <string name="searching_not_found">User Not Found!</string>
 </resources>
