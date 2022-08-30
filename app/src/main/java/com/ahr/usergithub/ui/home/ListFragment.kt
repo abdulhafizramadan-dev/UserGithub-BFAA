@@ -2,12 +2,15 @@ package com.ahr.usergithub.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ahr.usergithub.BuildConfig
+import com.ahr.usergithub.R
 import com.ahr.usergithub.adapter.UserListAdapter
 import com.ahr.usergithub.data.Response
 import com.ahr.usergithub.data.User
@@ -20,7 +23,8 @@ import com.ahr.usergithub.util.LottieViewType
 import com.ahr.usergithub.util.shareUser
 
 
-class ListFragment : Fragment(), UserListAdapter.OnItemClickListener {
+class ListFragment : Fragment(), UserListAdapter.OnItemClickListener,
+    Toolbar.OnMenuItemClickListener {
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
@@ -46,13 +50,17 @@ class ListFragment : Fragment(), UserListAdapter.OnItemClickListener {
 
         userListAdapter = UserListAdapter(this)
 
+        setupToolbar()
         setupRecyclerView()
+        observeListUser()
 
         if (listViewModel.firstLoad.value == true) {
             listViewModel.getListUser(BuildConfig.GITHUB_TOKEN)
         }
+    }
 
-        observeListUser()
+    private fun setupToolbar() {
+        binding.toolbar.setOnMenuItemClickListener(this)
     }
 
     private fun setupRecyclerView() {
@@ -94,6 +102,11 @@ class ListFragment : Fragment(), UserListAdapter.OnItemClickListener {
         binding.tvTextError.text = message
     }
 
+    private fun navigateToSearchScreen() {
+        val toSearchScreenDirections = ListFragmentDirections.actionListFragmentToSearchFragment()
+        findNavController().navigate(toSearchScreenDirections)
+    }
+
     override fun onBtnShareClicked(user: User) {
         shareUser(user)
     }
@@ -106,5 +119,15 @@ class ListFragment : Fragment(), UserListAdapter.OnItemClickListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.action_search -> {
+                navigateToSearchScreen()
+                true
+            }
+            else -> false
+        }
     }
 }

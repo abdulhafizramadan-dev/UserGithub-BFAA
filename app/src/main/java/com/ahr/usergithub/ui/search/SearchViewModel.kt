@@ -18,9 +18,13 @@ class SearchViewModel(
     val listUser: LiveData<Response<List<User>>>
         get() = _listUser
 
+    private val _firstLoad = MutableLiveData(true)
+    val firstLoad: LiveData<Boolean> get() = _firstLoad
+
     fun searchUser(token: String, query: String) {
         viewModelScope.launch {
             githubRepository.searchUser(token, query).collectLatest {
+                _firstLoad.postValue(false)
                 _listUser.postValue(it)
             }
         }

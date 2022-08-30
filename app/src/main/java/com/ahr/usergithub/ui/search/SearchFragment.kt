@@ -58,12 +58,17 @@ class SearchFragment : Fragment(), Toolbar.OnMenuItemClickListener,
         setupTieSearch()
         setupRecyclerView()
         observeListUser()
+
+        if (searchViewModel.firstLoad.value == true) {
+            ime.showSoftInput(binding.tieSearch, InputMethodManager.SHOW_IMPLICIT)
+        }
     }
 
     private fun setupToolbar() {
         binding.toolbar.apply {
             setOnMenuItemClickListener(this@SearchFragment)
             setNavigationOnClickListener {
+                ime.hideSoftInputFromWindow(view?.windowToken, 0)
                 activity?.onBackPressed()
             }
         }
@@ -71,6 +76,7 @@ class SearchFragment : Fragment(), Toolbar.OnMenuItemClickListener,
 
     private fun setupTieSearch() {
         binding.tieSearch.apply {
+            requestFocus()
             imeOptions = EditorInfo.IME_ACTION_SEARCH
             setOnEditorActionListener { _, _, _ ->
                 searchUser()
@@ -87,11 +93,10 @@ class SearchFragment : Fragment(), Toolbar.OnMenuItemClickListener,
         searchViewModel.listUser.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Response.Success -> {
-                    response.data.apply {
-                        toggleLottieView(type = LottieViewType.SearchingNotFound, state = isEmpty())
-                        toggleTextError(isEmpty(), getString(R.string.searching_not_found))
-                        userListAdapter.submitList(this)
-                    }
+                    val listUser = response.data
+                    toggleLottieView(type = LottieViewType.SearchingNotFound, state = listUser.isEmpty())
+                    toggleTextError(listUser.isEmpty(), getString(R.string.searching_not_found))
+                    userListAdapter.submitList(listUser)
                 }
                 is Response.Error -> {
                     toggleLottieView(LottieViewType.Error, true)
